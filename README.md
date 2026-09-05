@@ -325,16 +325,17 @@ Worked across the full analytics stack — cleaning, modeling, automating, and f
 
 <br/>
 
-
-
 ## 📊 GitHub Analytics
 
 <div align="center">
-
-<img height="165" src="https://github-readme-stats.vercel.app/api?username=Zidhann7&show_icons=true&theme=radical&hide_border=true&bg_color=0D0B1E&title_color=B39DFF&icon_color=7B2FF7&text_color=E9E4FF" />
-<img height="165" src="https://github-readme-streak-stats.herokuapp.com/?user=Zidhann7&theme=radical&hide_border=true&background=0D0B1E&stroke=7B2FF7&ring=8A2BE2&fire=B39DFF&currStreakLabel=E9E4FF" />
-
-<img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Zidhann7&layout=compact&theme=radical&hide_border=true&bg_color=0D0B1E&title_color=B39DFF&text_color=E9E4FF" />
+  
+  <img height="165" src="https://github-readme-stats.vercel.app/api?username=Zidhann7&show_icons=true&theme=radical&hide_border=true&bg_color=0D0B1E&title_color=839DFF&icon_color=7B2FF7&text_color=E9E4FF" alt="GitHub Stats" />
+  
+  <img height="165" src="https://streak-stats.demolab.com/?user=Zidhann7&theme=radical&hide_border=true&background=0D0B1E&stroke=7B2FF7&ring=8A2BE2&fire=839DFF&currStreakLabel=E9E4FF" alt="GitHub Streak" />
+  
+  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs?username=Zidhann7&layout=compact&theme=radical&hide_border=true&bg_color=0D0B1E&title_color=839DFF&text_color=E9E4FF" alt="Top Languages" />
+  
+</div>
 
 </div>
 
