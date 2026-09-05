@@ -28,15 +28,10 @@
 
 <br/>
 
-<img src="https://capsule-render.vercel.app/api?type=curve&color=0:0F0C29,50:302B63,100:24243e&height=30&width=100%"/>
-
 ## 🔮 About Me
 
-<div align="right">
-<img src="https://img.shields.io/badge/Python-306998?style=for-the-badge&logo=python&logoColor=white&labelColor=1a1a2e" /><br/>
-<img src="https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white&labelColor=1a1a2e" /><br/>
-<img src="https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black&labelColor=1a1a2e" /><br/>
-<img src="https://img.shields.io/badge/Tableau-E97627?style=for-the-badge&logo=tableau&logoColor=white&labelColor=1a1a2e" />
+<div align="center">
+<img align="right" width="320" src="https://skillicons.dev/icons?i=python,mysql,tableau,git&theme=dark" />
 </div>
 
 I'm a **Data Analyst** who treats messy, unstructured data as a solvable engineering problem — not just a reporting task. Across four internships, I've cleaned, modeled, and visualized **700K+ records**, translating raw tables into dashboards that stakeholders actually act on.
@@ -52,8 +47,6 @@ mindset: "Every dataset is a decision waiting to be unlocked."
 **🎯 Open To:** Data Analyst · Business Intelligence Analyst · Business Analyst · Data Analytics Intern/Associate roles
 
 <br/>
-
-<img src="https://capsule-render.vercel.app/api?type=curve&color=0:0F0C29,50:302B63,100:24243e&height=30&width=100%"/>
 
 ## 🧬 Tech Stack
 
@@ -90,7 +83,7 @@ mindset: "Every dataset is a decision waiting to be unlocked."
 
 <br/>
 
-<img src="https://capsule-render.vercel.app/api?type=curve&color=0:0F0C29,50:302B63,100:24243e&height=30&width=100%"/>
+
 
 ## 🧠 Data Analytics & GenAI Expertise
 
@@ -111,7 +104,7 @@ mindset: "Every dataset is a decision waiting to be unlocked."
 
 <br/>
 
-<img src="https://capsule-render.vercel.app/api?type=curve&color=0:0F0C29,50:302B63,100:24243e&height=30&width=100%"/>
+
 
 ## 🚀 Featured Projects
 
@@ -219,7 +212,7 @@ Deep exploratory data analysis on food-delivery order data across multiple state
 
 <br/>
 
-<img src="https://capsule-render.vercel.app/api?type=curve&color=0:0F0C29,50:302B63,100:24243e&height=30&width=100%"/>
+
 
 ## 💼 Experience
 
@@ -264,7 +257,7 @@ Worked across the full analytics stack — cleaning, modeling, automating, and f
 
 <br/>
 
-<img src="https://capsule-render.vercel.app/api?type=curve&color=0:0F0C29,50:302B63,100:24243e&height=30&width=100%"/>
+
 
 ## 🏆 Achievements
 
@@ -283,7 +276,7 @@ Worked across the full analytics stack — cleaning, modeling, automating, and f
 
 <br/>
 
-<img src="https://capsule-render.vercel.app/api?type=curve&color=0:0F0C29,50:302B63,100:24243e&height=30&width=100%"/>
+
 
 ## 📜 Certifications
 
@@ -332,7 +325,7 @@ Worked across the full analytics stack — cleaning, modeling, automating, and f
 
 <br/>
 
-<img src="https://capsule-render.vercel.app/api?type=curve&color=0:0F0C29,50:302B63,100:24243e&height=30&width=100%"/>
+
 
 ## 📊 GitHub Analytics
 
