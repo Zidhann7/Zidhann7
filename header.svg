@@ -56,6 +56,10 @@
 
       <rect x="396" y="142" width="70" height="28" rx="14" fill="#FFFFFF" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.18"/>
       <text x="410" y="161">GenAI</text>
+
+      <rect x="476" y="142" width="90" height="28" rx="14" fill="#FFFFFF" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.18"/>
+    <text x="490" y="161">MS Excel</text>
+      
     </g>
   </g>
 
