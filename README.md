@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./header.svg" width="100%"/>
+
 
 <a href="https://git.io/typing-svg">
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=24&duration=3000&pause=900&color=B39DFF&center=true&vCenter=true&width=680&lines=Turning+Raw+Data+Into+Business+Decisions;Python+%7C+SQL+%7C+Power+BI+%7C+Tableau;700K%2B+Records+Analyzed+Across+4+Internships;GenAI-Accelerated+Reporting+%26+Insight+Generation" alt="Typing SVG" />
@@ -32,11 +32,8 @@
 
 ## 🔮 About Me
 
-<div align="right">
-<img src="https://img.shields.io/badge/Python-306998?style=for-the-badge&logo=python&logoColor=white&labelColor=1a1a2e" /><br/>
-<img src="https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white&labelColor=1a1a2e" /><br/>
-<img src="https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black&labelColor=1a1a2e" /><br/>
-<img src="https://img.shields.io/badge/Tableau-E97627?style=for-the-badge&logo=tableau&logoColor=white&labelColor=1a1a2e" />
+<div align="center">
+<img align="right" width="320" src="https://skillicons.dev/icons?i=python,mysql,tableau,git&theme=dark" />
 </div>
 
 I'm a **Data Analyst** who treats messy, unstructured data as a solvable engineering problem — not just a reporting task. Across four internships, I've cleaned, modeled, and visualized **700K+ records**, translating raw tables into dashboards that stakeholders actually act on.
