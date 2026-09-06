@@ -15,7 +15,7 @@
 <br/><br/>
 
 <a href="https://github.com/Zidhann7"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1a2e&color=7B2FF7" /></a>
-<a href="www.linkedin.com/in/muhammad-zidhan-n"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=1a1a2e&color=5D3FD3" /></a>
+<a href="https://www.linkedin.com/in/muhammad-zidhan-n/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=1a1a2e&color=5D3FD3" /></a>
 <a href="mailto:zidhann7@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=1a1a2e&color=8A2BE2" /></a>
 
 <br/><br/>
