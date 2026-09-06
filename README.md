@@ -8,7 +8,7 @@
 
 <br/>
 
-<img src="https://img.shields.io/badge/B.Com-SGOU-6A0DAD?style=flat-square&labelColor=1a1a2e&color=7B2FF7" alt="education"/>
+<img src="https://img.shields.io/badge/BBA-SGOU-6A0DAD?style=flat-square&labelColor=1a1a2e&color=7B2FF7" alt="education"/>
 <img src="https://img.shields.io/badge/Diploma-Data%20Analyst%20%7C%20Ofsys-6A0DAD?style=flat-square&labelColor=1a1a2e&color=7B2FF7" alt="diploma"/>
 <img src="https://img.shields.io/badge/Location-Kerala%2C%20India-6A0DAD?style=flat-square&labelColor=1a1a2e&color=5D3FD3" alt="location"/>
 
