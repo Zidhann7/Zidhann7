@@ -121,7 +121,7 @@ Scraped and analyzed 100+ live job listings to surface hiring trends and in-dema
 | **Performance** | Real-time interactive filtering via Streamlit |
 | **Security** | Read-only public data scraping, no credential handling |
 | **Impact** | Surfaced in-demand skills & hiring trends for job-seeker decision support |
-| **Repository** | [github.com/Zidhann7](https://github.com/Zidhann7) |
+| **Repository** | [github.com/Zidhann7](https://github.com/Zidhann7/Job-Market-Intelligence-Dashboard-Using-Web-Scraping) |
 
 </details>
 
@@ -138,7 +138,7 @@ An interactive Excel dashboard analyzing revenue, customer behavior, product per
 | **Performance** | Dynamic, filterable dashboard views |
 | **Security** | Local, offline analysis workflow |
 | **Impact** | Revealed product & customer behavior trends driving revenue |
-| **Repository** | [github.com/Zidhann7](https://github.com/Zidhann7) |
+| **Repository** | [github.com/Zidhann7](https://github.com/Zidhann7/FNP-Sales-Analsis) |
 
 </details>
 
@@ -155,7 +155,7 @@ An interactive Power BI dashboard analyzing ride bookings, revenue trends, and d
 | **Performance** | Optimized DAX measures for fast dashboard refresh |
 | **Security** | Aggregated, anonymized ride-level data |
 | **Impact** | Surfaced revenue trends and rating patterns across drivers/customers |
-| **Repository** | [github.com/Zidhann7](https://github.com/Zidhann7) |
+| **Repository** | [github.com/Zidhann7](https://github.com/Zidhann7/Uber-Ride-Analytics-Dashboard-Power-BI-Project) |
 
 </details>
 
@@ -172,7 +172,7 @@ Segmented customers via clustering techniques to identify high-value segments dr
 | **Performance** | Clustering pipeline for repeatable segmentation |
 | **Security** | Anonymized customer identifiers |
 | **Impact** | Identified segments contributing **~60% of revenue** |
-| **Repository** | [github.com/Zidhann7](https://github.com/Zidhann7) |
+| **Repository** | [github.com/Zidhann7](https://github.com/Zidhann7/Customer-Behavior-Analysis-) |
 
 </details>
 
@@ -189,7 +189,7 @@ Analyzed large-scale transaction data to identify top revenue-driving categories
 | **Performance** | Category-level trend analysis at scale |
 | **Security** | De-identified transactional data |
 | **Impact** | Identified top 5 revenue-driving categories & seasonal patterns |
-| **Repository** | [github.com/Zidhann7](https://github.com/Zidhann7) |
+| **Repository** | [github.com/Zidhann7](https://github.com/Zidhann7/Walmart-Sales) |
 
 </details>
 
@@ -206,7 +206,7 @@ Deep exploratory data analysis on food-delivery order data across multiple state
 | **Performance** | Multi-dimensional EDA pipeline |
 | **Security** | Aggregated order-level data, no PII |
 | **Impact** | Uncovered customer behavior patterns & regional business insights |
-| **Repository** | [github.com/Zidhann7](https://github.com/Zidhann7) |
+| **Repository** | [github.com/Zidhann7](https://github.com/Zidhann7/Swiggy-Sales-Analysis-) |
 
 </details>
 
