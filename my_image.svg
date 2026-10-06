@@ -1,0 +1,321 @@
+#!/usr/bin/env python3
+"""
+make_ascii_svg.py  --  PHASE 2: turn your portrait into an animated ASCII SVG
+============================================================================
+
+What this script does (in plain English):
+  1. Opens your portrait (photo/me.png / me.jpg ... or photo/prepared.png).
+  2. Uses the transparent background if your image has one. If not, it simply
+     treats everything as "subject" (run prep_photo.py first for busy photos).
+  3. Crops to a square, boosts contrast and converts every little block of the
+     picture into one text character (dark = light characters, bright = dense).
+  4. Wraps the characters in a terminal-window SVG that "scans in" row by row,
+     left to right, ONCE, and then stays on screen forever.
+
+Output:  avi-ascii.svg  (in the project root)
+
+How to run (from the project root):
+    python scripts/make_ascii_svg.py
+
+Handy options:
+    python scripts/make_ascii_svg.py --preview          # also saves photo/ascii-preview.png
+    python scripts/make_ascii_svg.py --zoom 1.2         # tighter crop on the face
+    python scripts/make_ascii_svg.py --gamma 0.6        # brighter (shows dark hair more)
+    python scripts/make_ascii_svg.py --cols 100 --rows 53   # smaller, lighter grid
+    python scripts/make_ascii_svg.py --handle zidan --name "Mohammad Zidan"
+
+No JavaScript, no external CSS: the animation is pure SVG (SMIL), which GitHub
+plays when the SVG is shown with an <img> tag.
+"""
+
+import argparse
+import html
+import sys
+from pathlib import Path
+
+import cv2
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont, ImageOps
+
+# ---------------------------------------------------------------------------
+# SETTINGS
+# ---------------------------------------------------------------------------
+ROOT = Path(__file__).resolve().parent.parent
+PHOTO_DIR = ROOT / "photo"
+
+# Density ramp, from "almost nothing" to "solid". Index 0 (space) = background.
+RAMP = " `:-=+*cs#%@"
+
+# --- SVG layout (all numbers are pixels) ---
+CANVAS_W, CANVAS_H = 840, 880
+ART_X, ART_TOP = 20, 37            # where the ASCII art starts inside the window
+ART_W, ART_H = 800.0, 800.0        # size of the ASCII art area
+FONT_SIZE = 7.2                    # font size of the ASCII characters
+FONT_STACK = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+
+# --- Colours (GitHub dark theme inspired, monochrome) ---
+COL_BG_TOP, COL_BG_BOTTOM = "#111722", "#0d1117"
+COL_BORDER = "#30363d"
+COL_ART = "#c9d1d9"
+COL_MUTED = "#7d8590"
+
+# --- Animation ---
+ROW_STEP = 0.0605     # seconds between the start of one row and the next
+ROW_DUR = 0.06        # seconds each row takes to wipe left -> right
+
+
+# ---------------------------------------------------------------------------
+# STEP 1: load the image
+# ---------------------------------------------------------------------------
+def find_input(cli_path):
+    """Use the path you passed in, else photo/prepared.png, else photo/me.*"""
+    if cli_path:
+        p = Path(cli_path)
+        if not p.is_file():
+            sys.exit(f"[error] Could not find the image: {p}")
+        return p
+    for name in ("prepared.png", "me.png", "me.jpg", "me.jpeg", "me.webp"):
+        p = PHOTO_DIR / name
+        if p.is_file():
+            return p
+    sys.exit(
+        "[error] No image found.\n"
+        f"        Put your portrait here:  {PHOTO_DIR / 'me.png'}  (or me.jpg)"
+    )
+
+
+def load_rgba(path):
+    img = ImageOps.exif_transpose(Image.open(path)).convert("RGBA")
+    arr = np.array(img)
+    return arr[:, :, :3], arr[:, :, 3]          # colour, alpha
+
+
+# ---------------------------------------------------------------------------
+# STEP 2: crop the picture to the shape of the ASCII area
+# ---------------------------------------------------------------------------
+def crop_to_grid(rgb, alpha, aspect, zoom):
+    """
+    Crop so that  width / height == aspect  (the ASCII area is a square here).
+    The crop starts just above the top of your head and is centred on you.
+    zoom > 1 crops tighter (more face, less shoulders).
+    """
+    h, w = alpha.shape
+    ys, xs = np.where(alpha > 20)
+    if len(xs) == 0:                      # no transparency info -> use whole image
+        top, cx = 0, w / 2
+    else:
+        top = ys.min() - 0.03 * (ys.max() - ys.min())
+        cx = (xs.min() + xs.max()) / 2
+
+    crop_w = w / zoom
+    crop_h = crop_w / aspect
+    box = (int(cx - crop_w / 2), int(top), int(cx + crop_w / 2), int(top + crop_h))
+
+    # PIL pads anything outside the picture with transparent pixels.
+    rgba = Image.fromarray(np.dstack([rgb, alpha]), "RGBA").crop(box)
+    arr = np.array(rgba)
+    return arr[:, :, :3], arr[:, :, 3]
+
+
+# ---------------------------------------------------------------------------
+# STEP 3: picture  ->  grid of characters
+# ---------------------------------------------------------------------------
+def build_density(rgb, alpha, cols, rows, contrast, gamma, edge_weight):
+    """Return (density 0..1, mask) arrays of shape (rows, cols)."""
+    ss = 4                                              # work at 4x the grid size
+    size = (cols * ss, rows * ss)
+    rgb = cv2.resize(rgb, size, interpolation=cv2.INTER_AREA)
+    alpha = cv2.resize(alpha, size, interpolation=cv2.INTER_AREA)
+
+    gray = cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY)
+
+    # a) local contrast (CLAHE): makes eyes, nose, hair and fabric folds stand out
+    clahe = cv2.createCLAHE(clipLimit=contrast, tileGridSize=(8, 8))
+    gray = clahe.apply(gray).astype(np.float32)
+
+    # b) stretch the tones so the subject uses the whole dark -> bright range
+    subject = gray[alpha > 128]
+    lo, hi = np.percentile(subject, (1, 99)) if subject.size else (0, 255)
+    tone = np.clip((gray - lo) / max(hi - lo, 1), 0, 1)
+
+    # c) gamma < 1 lifts dark areas (so black hair does not vanish)
+    tone = tone ** gamma
+
+    # d) a touch of edge detection keeps outlines crisp
+    blur = cv2.GaussianBlur(gray, (0, 0), 1.2)
+    gx = cv2.Sobel(blur, cv2.CV_32F, 1, 0)
+    gy = cv2.Sobel(blur, cv2.CV_32F, 0, 1)
+    mag = np.hypot(gx, gy)
+    ref = np.percentile(mag[alpha > 128], 97) if subject.size else 1
+    edge = np.clip(mag / max(ref, 1e-6), 0, 1)
+    density = np.clip(tone + edge_weight * edge, 0, 1)
+
+    # shrink to one value per character
+    density = cv2.resize(density, (cols, rows), interpolation=cv2.INTER_AREA)
+    mask = cv2.resize(alpha, (cols, rows), interpolation=cv2.INTER_AREA) > 100
+    return density, mask
+
+
+def density_to_rows(density, mask, invert):
+    """Map density numbers to characters. Background cells become spaces."""
+    n = len(RAMP)
+    out = []
+    for r in range(density.shape[0]):
+        chars = []
+        for c in range(density.shape[1]):
+            if not mask[r, c]:
+                chars.append(" ")
+                continue
+            d = 1 - density[r, c] if invert else density[r, c]
+            idx = int(round(d * (n - 1)))
+            chars.append(RAMP[max(1, min(n - 1, idx))])   # subject is never a blank
+        out.append("".join(chars))
+    return out
+
+
+# ---------------------------------------------------------------------------
+# STEP 4: characters  ->  animated SVG
+# ---------------------------------------------------------------------------
+def fmt(x):
+    """Short number formatting keeps the SVG file small."""
+    return f"{x:.3f}".rstrip("0").rstrip(".")
+
+
+def build_svg(rows_text, cols, handle, name):
+    n_rows = len(rows_text)
+    char_w = ART_W / cols
+    row_h = ART_H / n_rows
+    footer_y = ART_TOP + ART_H            # y of the line above the prompt
+    parts = []
+    add = parts.append
+
+    add(f'<svg xmlns="http://www.w3.org/2000/svg" width="{CANVAS_W}" height="{CANVAS_H}" '
+        f'viewBox="0 0 {CANVAS_W} {CANVAS_H}" font-family="{FONT_STACK}" '
+        f'role="img" aria-label="ASCII portrait of {html.escape(name)}">')
+    add(f'<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">'
+        f'<stop offset="0" stop-color="{COL_BG_TOP}"/><stop offset="1" stop-color="{COL_BG_BOTTOM}"/>'
+        f'</linearGradient></defs>')
+
+    # --- terminal window frame ---
+    add(f'<rect width="{CANVAS_W}" height="{CANVAS_H}" rx="12" fill="url(#bg)"/>')
+    add(f'<rect x="0.5" y="0.5" width="{CANVAS_W - 1}" height="{CANVAS_H - 1}" rx="12" '
+        f'fill="none" stroke="{COL_BORDER}" stroke-width="1"/>')
+    add(f'<line x1="0" y1="30" x2="{CANVAS_W}" y2="30" stroke="{COL_BORDER}"/>')
+    add('<circle cx="20" cy="15" r="5" fill="#ff5f56"/>'
+        '<circle cx="36" cy="15" r="5" fill="#ffbd2e"/>'
+        '<circle cx="52" cy="15" r="5" fill="#27c93f"/>')
+    add(f'<text x="{CANVAS_W / 2}" y="19" fill="{COL_MUTED}" font-size="12" text-anchor="middle">'
+        f'{html.escape(handle)}@github: ~$ ./portrait.sh</text>')
+
+    # --- one clip-path + text line per row (the "wipe") ---
+    for r, line in enumerate(rows_text):
+        begin = r * ROW_STEP
+        y = ART_TOP + r * row_h
+
+        text = line.rstrip()
+        if text.strip():                                   # skip fully blank rows
+            add(f'<clipPath id="r{r}"><rect x="{ART_X}" y="{fmt(y)}" height="{fmt(row_h)}" width="0">'
+                f'<animate attributeName="width" from="0" to="{fmt(ART_W)}" begin="{begin:.3f}s" '
+                f'dur="{ROW_DUR}s" fill="freeze"/></rect></clipPath>')
+            add(f'<g clip-path="url(#r{r})"><text xml:space="preserve" x="{ART_X}" '
+                f'y="{fmt(y + row_h * 0.745)}" fill="{COL_ART}" font-size="{FONT_SIZE}" '
+                f'textLength="{fmt(len(text) * char_w)}" lengthAdjust="spacing">'
+                f'{html.escape(text, quote=False)}</text></g>')
+
+        # little "scanner" block that sweeps along the row while it is revealed
+        add(f'<rect y="{fmt(y + 1)}" width="{fmt(char_w)}" height="{fmt(row_h - 2)}" '
+            f'fill="{COL_ART}" opacity="0">'
+            f'<animate attributeName="x" from="{ART_X}" to="{fmt(ART_X + ART_W)}" begin="{begin:.3f}s" '
+            f'dur="{ROW_DUR}s" fill="freeze"/>'
+            f'<set attributeName="opacity" to="0.85" begin="{begin:.3f}s"/>'
+            f'<set attributeName="opacity" to="0" begin="{begin + ROW_DUR:.3f}s"/></rect>')
+
+    # --- footer prompt ---
+    end_time = n_rows * ROW_STEP + ROW_DUR
+    add(f'<line x1="0" y1="{fmt(footer_y)}" x2="{CANVAS_W}" y2="{fmt(footer_y)}" stroke="{COL_BORDER}"/>')
+    prompt = f"{handle}@github:~$ whoami "
+    foot_char_w = 7.8
+    total_len = (len(prompt) + len(name)) * foot_char_w
+    add(f'<text xml:space="preserve" x="20" y="{fmt(footer_y + 19)}" fill="{COL_MUTED}" font-size="13" '
+        f'textLength="{fmt(total_len)}" lengthAdjust="spacing">{html.escape(prompt)}'
+        f'<tspan fill="{COL_ART}">{html.escape(name)}</tspan></text>')
+
+    # blinking cursor: appears when the portrait finishes, blinks 3 times, then stays solid
+    cursor_x = 20 + total_len + 3
+    add(f'<rect x="{fmt(cursor_x)}" y="{fmt(footer_y + 7)}" width="8" height="14" fill="{COL_ART}" opacity="0">'
+        f'<animate attributeName="opacity" values="0;1;0;1;0;1" keyTimes="0;0.2;0.4;0.6;0.8;1" '
+        f'calcMode="discrete" begin="{end_time:.3f}s" dur="1.8s" fill="freeze"/></rect>')
+
+    add('</svg>')
+    return "\n".join(parts), end_time
+
+
+# ---------------------------------------------------------------------------
+# OPTIONAL: a normal PNG so you can check the result without opening the SVG
+# ---------------------------------------------------------------------------
+def save_preview(rows_text, path):
+    candidates = [
+        "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+        "C:/Windows/Fonts/consola.ttf",
+        "/System/Library/Fonts/Menlo.ttc",
+    ]
+    font = None
+    for c in candidates:
+        if Path(c).is_file():
+            font = ImageFont.truetype(c, 10)
+            break
+    if font is None:
+        font = ImageFont.load_default()
+    line_h = 12
+    char_w = font.getlength("M")
+    img = Image.new("RGB", (int(char_w * len(rows_text[0])) + 20, line_h * len(rows_text) + 20), "#0d1117")
+    draw = ImageDraw.Draw(img)
+    for i, line in enumerate(rows_text):
+        draw.text((10, 10 + i * line_h), line, font=font, fill="#c9d1d9")
+    img.save(path)
+
+
+# ---------------------------------------------------------------------------
+def main():
+    ap = argparse.ArgumentParser(description="Make the animated ASCII portrait SVG.")
+    ap.add_argument("--input", help="portrait image (default: photo/prepared.png or photo/me.*)")
+    ap.add_argument("--output", default=str(ROOT / "avi-ascii.svg"))
+    ap.add_argument("--cols", type=int, default=180, help="characters across (default 180)")
+    ap.add_argument("--rows", type=int, default=96, help="characters down (default 96)")
+    ap.add_argument("--handle", default="zidan", help="name shown in the prompt (zidan@github)")
+    ap.add_argument("--name", default="Mohammad Zidan", help="text printed after 'whoami'")
+    ap.add_argument("--zoom", type=float, default=1.0, help="1.0 = full width, 1.3 = closer crop")
+    ap.add_argument("--contrast", type=float, default=2.0, help="local contrast, 1.0-4.0")
+    ap.add_argument("--gamma", type=float, default=0.75, help="below 1 = brighter shadows")
+    ap.add_argument("--edge", type=float, default=0.25, help="outline strength, 0-1")
+    ap.add_argument("--invert", action="store_true", help="dark = dense (negative look)")
+    ap.add_argument("--preview", action="store_true", help="also save photo/ascii-preview.png")
+    args = ap.parse_args()
+
+    src = find_input(args.input)
+    print(f"[info] Using image: {src}")
+    rgb, alpha = load_rgba(src)
+
+    # The ASCII area has this width/height ratio (a character is taller than wide)
+    aspect = (args.cols * (ART_W / args.cols)) / (args.rows * (ART_H / args.rows))
+    rgb, alpha = crop_to_grid(rgb, alpha, aspect, args.zoom)
+
+    density, mask = build_density(rgb, alpha, args.cols, args.rows,
+                                  args.contrast, args.gamma, args.edge)
+    rows_text = density_to_rows(density, mask, args.invert)
+
+    svg, end_time = build_svg(rows_text, args.cols, args.handle, args.name)
+    out = Path(args.output)
+    out.write_text(svg, encoding="utf-8")
+    print(f"[done] Saved {out}  ({out.stat().st_size / 1024:.0f} KB, "
+          f"{args.cols}x{args.rows} characters, animation lasts {end_time:.1f}s)")
+
+    if args.preview:
+        PHOTO_DIR.mkdir(exist_ok=True)
+        prev = PHOTO_DIR / "ascii-preview.png"
+        save_preview(rows_text, prev)
+        print(f"[done] Saved {prev}  <-- quick look without animation")
+
+
+if __name__ == "__main__":
+    main()
