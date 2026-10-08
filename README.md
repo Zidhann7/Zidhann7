@@ -3,7 +3,7 @@
 <img src="./header.svg" width="100%"/>
 
 <a href="https://git.io/typing-svg">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=24&duration=3000&pause=900&color=B39DFF&center=true&vCenter=true&width=680&lines=Turning+Raw+Data+Into+Business+Decisions;Python+%7C+SQL+%7C+Power+BI+%7C+Tableau;700K%2B+Records+Analyzed+Across+4+Internships;GenAI-Accelerated+Reporting+%26+Insight+Generation" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=18&duration=3000&pause=900&color=B39DFF&center=true&vCenter=true&width=680&lines=Turning+Raw+Data+Into+Business+Decisions;Python+%7C+SQL+%7C+Power+BI+%7C+Tableau;700K%2B+Records+Analyzed+Across+4+Internships;GenAI-Accelerated+Reporting+%26+Insight+Generation" alt="Typing SVG" />
 </a>
 
 <br/>
