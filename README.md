@@ -18,8 +18,6 @@
 <a href="https://www.linkedin.com/in/muhammad-zidhan-n/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=1a1a2e&color=5D3FD3" /></a>
 <a href="mailto:zidhann7@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=1a1a2e&color=8A2BE2" /></a>
 
-<br/>
-
 <img src="https://komarev.com/ghpvc/?username=Zidhann7&style=flat-square&color=7B2FF7&label=Profile+Views" />
 <img src="https://img.shields.io/github/followers/Zidhann7?style=flat-square&labelColor=1a1a2e&color=5D3FD3&label=Followers" />
 <img src="https://img.shields.io/github/stars/Zidhann7?style=flat-square&labelColor=1a1a2e&color=8A2BE2&label=Stars" />
