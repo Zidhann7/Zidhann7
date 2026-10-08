@@ -1,12 +1,24 @@
+
+
 <div align="center">
 
-<img src="./header.svg" width="100%"/>
+<!-- animated contribution graph: real data, boxes reveal cell by cell
+     (regenerated daily by .github/workflows/update-profile-art.yml) -->
 
-<a href="https://git.io/typing-svg">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=18&duration=3000&pause=900&color=B39DFF&center=true&vCenter=true&width=680&lines=Turning+Raw+Data+Into+Business+Decisions;Python+%7C+SQL+%7C+Power+BI+%7C+Tableau;700K%2B+Records+Analyzed+Across+4+Internships;GenAI-Accelerated+Reporting+%26+Insight+Generation" alt="Typing SVG" />
-</a>
+<h3><code>Zidhann7@github ~ $ ./contributions.sh</code></h3>
 
-<br/>
+<img src="./Zidhann7-github-contribution-heatmap.svg" width="860" alt="Avi's GitHub contribution graph — auto-refreshed daily" />
+
+<br>
+<h3><code>Zidhann7@github ~ $</code></h3>
+
+<table>
+<tr>
+<td valign="top"><img src="./zidhan_an.svg" width="420" alt="Avi Vashishta — ASCII portrait" /></td>
+<td valign="top"><img src="./stats.svg" width="420" alt="Avi's GitHub streak and contribution stats — auto-refreshed daily" /></td>
+</tr>
+</table>
+
 
 <img src="https://img.shields.io/badge/BBA-SGOU-6A0DAD?style=flat-square&labelColor=1a1a2e&color=7B2FF7" alt="education"/>
 <img src="https://img.shields.io/badge/Diploma-Data%20Analyst%20%7C%20Ofsys-6A0DAD?style=flat-square&labelColor=1a1a2e&color=7B2FF7" alt="diploma"/>
@@ -23,7 +35,6 @@
 <img src="https://img.shields.io/github/stars/Zidhann7?style=flat-square&labelColor=1a1a2e&color=8A2BE2&label=Stars" />
 
 </div>
-
 <br/>
 
 ## 🔮 About Me
