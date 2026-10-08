@@ -12,13 +12,13 @@
 <img src="https://img.shields.io/badge/Diploma-Data%20Analyst%20%7C%20Ofsys-6A0DAD?style=flat-square&labelColor=1a1a2e&color=7B2FF7" alt="diploma"/>
 <img src="https://img.shields.io/badge/Location-Kerala%2C%20India-6A0DAD?style=flat-square&labelColor=1a1a2e&color=5D3FD3" alt="location"/>
 
-<br/><br/>
+<br/>
 
 <a href="https://github.com/Zidhann7"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1a2e&color=7B2FF7" /></a>
 <a href="https://www.linkedin.com/in/muhammad-zidhan-n/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=1a1a2e&color=5D3FD3" /></a>
 <a href="mailto:zidhann7@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=1a1a2e&color=8A2BE2" /></a>
 
-<br/><br/>
+<br/>
 
 <img src="https://komarev.com/ghpvc/?username=Zidhann7&style=flat-square&color=7B2FF7&label=Profile+Views" />
 <img src="https://img.shields.io/github/followers/Zidhann7?style=flat-square&labelColor=1a1a2e&color=5D3FD3&label=Followers" />
