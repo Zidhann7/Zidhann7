@@ -12,8 +12,6 @@
 <img src="./Zidhann7-github-contribution-heatmap.svg" width="860" alt="Avi's GitHub contribution graph — auto-refreshed daily" />
 
 <br>
-<h3><code>Zidhann7@github ~ $</code></h3>
-
 <table>
 <tr>
 <td valign="top"><img src="./zidhan_an.svg" width="420" alt="Avi Vashishta — ASCII portrait" /></td>
