@@ -7,7 +7,7 @@
 <!-- animated contribution graph: real data, boxes reveal cell by cell
      (regenerated daily by .github/workflows/update-profile-art.yml) -->
 
-<h3><code>Zidhann7@github ~ $ ./contributions.sh</code></h3>
+
 
 <img src="./Zidhann7-github-contribution-heatmap.svg" width="860" alt="Avi's GitHub contribution graph — auto-refreshed daily" />
 
